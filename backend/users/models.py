@@ -1,3 +1,4 @@
+from django.conf import settings
 from django.contrib.auth.models import AbstractUser
 from django.db import models
 from django.urls import reverse
@@ -17,10 +18,53 @@ class User(AbstractUser):
     This model represents the User instance of the system, login system and
     everything that relates with an `User` is represented by this model.
     """
-
-    # First Name and Last Name do not cover name patterns
-    # around the globe.
-    name = models.CharField(_("Name of User"), blank=True, null=True, max_length=255)
+    name = models.CharField(
+        null=True,
+        blank=True,
+        max_length=255,
+    )
+    rel_hbcbc_1_1 = models.OneToOneField(
+        "home.HBcbc",
+        blank=True,
+        null=True,
+        on_delete=models.CASCADE,
+        related_name="user_rel_hbcbc_1_1",
+    )
+    rel_hbcbc_1_1_1 = models.OneToOneField(
+        "home.HBcbc",
+        blank=True,
+        null=True,
+        on_delete=models.CASCADE,
+        related_name="user_rel_hbcbc_1_1_1",
+    )
+    rel_user_1_n = models.ForeignKey(
+        "users.User",
+        blank=True,
+        null=True,
+        on_delete=models.CASCADE,
+        related_name="user_rel_user_1_n",
+    )
+    rel_hbcbc_1_n = models.ForeignKey(
+        "home.HBcbc",
+        blank=True,
+        null=True,
+        on_delete=models.CASCADE,
+        related_name="user_rel_hbcbc_1_n",
+    )
+    rel_user_1_n_1 = models.ForeignKey(
+        "users.User",
+        blank=True,
+        null=True,
+        on_delete=models.CASCADE,
+        related_name="user_rel_user_1_n_1",
+    )
+    rel_hbcbc_1_1_2 = models.OneToOneField(
+        "home.HBcbc",
+        blank=True,
+        null=True,
+        on_delete=models.CASCADE,
+        related_name="user_rel_hbcbc_1_1_2",
+    )
 
     def get_absolute_url(self):
         return reverse("users:detail", kwargs={"username": self.username})
